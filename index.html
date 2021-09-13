@@ -55,6 +55,35 @@
                 <td>free</td>
               </tr>
             </tbody>
-            </table> 
+        </table>
+        <hr/>
+        <h1>Code</h1>
+        <p>The algorithm was proposed by Klee in 1977. The time complexity of the algorithm is O (N log N). It has been proven that this algorithm is the fastest (asymptotically) and this problem can not be solved with a better complexity. </p>
+        <a href='https://www.geeksforgeeks.org/klees-algorithm-length-union-segments-line/'>Length of the union of segments</a>
+        <pre>
+            int length_union(const vector<pair<int, int>> &a) {
+                int n = a.size();
+                vector<pair<int, bool>> x(n*2);
+                for (int i = 0; i < n; i++) {
+                    x[i*2] = {a[i].first, false};
+                    x[i*2+1] = {a[i].second, true};
+                }
+            
+                sort(x.begin(), x.end());
+            
+                int result = 0;
+                int c = 0;
+                for (int i = 0; i < n * 2; i++) {
+                    if (i > 0 && x[i].first > x[i-1].first && c > 0)
+                        result += x[i].first - x[i-1].first;
+                    if (x[i].second)
+                        c--;
+                    else
+                        c++;
+                }
+                return result;
+            }
+        </pre>
+
     </body>
 </html>
